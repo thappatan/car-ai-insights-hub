@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, BarChart3, Image, Loader2, RefreshCw, MessageCircle, X, Minimize2, TrendingUp, TrendingDown, Search, Filter, Car, DollarSign, Users, Calendar } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
@@ -560,7 +559,7 @@ const Index: React.FC = () => {
         </div>
       </div>
 
-      {/* Enhanced Chat Widget */}
+      {/* Enhanced Chat Widget - Made Larger */}
       {!isChatOpen ? (
         <button
           onClick={() => setIsChatOpen(true)}
@@ -570,7 +569,7 @@ const Index: React.FC = () => {
         </button>
       ) : (
         <div className={`fixed bottom-8 right-8 bg-white rounded-2xl shadow-2xl border border-gray-100 transition-all duration-300 ${
-          isMinimized ? 'w-80 h-16' : 'w-96 h-[640px]'
+          isMinimized ? 'w-96 h-16' : 'w-[480px] h-[700px]'
         }`}>
           {/* Chat Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-gradient-to-r from-purple-50 to-blue-50 rounded-t-2xl">
@@ -618,8 +617,8 @@ const Index: React.FC = () => {
                 </div>
               </div>
 
-              {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-4 h-96">
+              {/* Messages - Increased height */}
+              <div className="flex-1 overflow-y-auto p-6 space-y-4 h-[440px]">
                 {messages.map((message) => (
                   <MessageBubble key={message.id} message={message} />
                 ))}
@@ -637,8 +636,8 @@ const Index: React.FC = () => {
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* Input */}
-              <div className="border-t border-gray-100 p-6">
+              {/* Enhanced Input Section */}
+              <div className="border-t border-gray-100 p-6 bg-white rounded-b-2xl">
                 <div className="flex items-end space-x-3">
                   <div className="flex-1">
                     <textarea
@@ -646,18 +645,27 @@ const Index: React.FC = () => {
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyDown={handleKeyPress}
                       placeholder="Type your message here..."
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none text-sm transition-all"
+                      className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none text-sm transition-all min-h-[44px] max-h-32"
                       rows={1}
                       disabled={isLoading}
+                      style={{ height: 'auto' }}
+                      onInput={(e) => {
+                        const target = e.target as HTMLTextAreaElement;
+                        target.style.height = 'auto';
+                        target.style.height = target.scrollHeight + 'px';
+                      }}
                     />
                   </div>
                   <button
                     onClick={handleSendMessage}
                     disabled={!inputValue.trim() || isLoading}
-                    className="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-3 rounded-xl hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105"
+                    className="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-3 rounded-xl hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 flex-shrink-0"
                   >
                     <Send className="w-5 h-5" />
                   </button>
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Press Enter to send, Shift+Enter for new line
                 </div>
               </div>
             </>
